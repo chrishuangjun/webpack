@@ -76,7 +76,7 @@ module.exports = {
     vuex: {
       when: 'isNotTest',
       type: 'confirm',
-      message: 'Install vuex'
+      message: 'Install vuex?'
     },
     lint: {
       when: 'isNotTest',
