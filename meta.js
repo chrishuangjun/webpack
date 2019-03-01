@@ -5,7 +5,7 @@ const {
   sortDependencies,
   installDependencies,
   runLintFix,
-  printMessage,
+  printMessage
 } = require('./utils')
 const pkg = require('./package.json')
 
@@ -20,7 +20,6 @@ module.exports = {
   },
   helpers: {
     if_or(v1, v2, options) {
-
       if (v1 || v2) {
         return options.fn(this)
       }
@@ -29,27 +28,27 @@ module.exports = {
     },
     template_version() {
       return templateVersion
-    },
+    }
   },
-  
+
   prompts: {
     name: {
       when: 'isNotTest',
       type: 'string',
       required: true,
-      message: 'Project name',
+      message: 'Project name'
     },
     description: {
       when: 'isNotTest',
       type: 'string',
       required: false,
       message: 'Project description',
-      default: 'A Vue.js project',
+      default: 'A Vue.js project'
     },
     author: {
       when: 'isNotTest',
       type: 'string',
-      message: 'Author',
+      message: 'Author'
     },
     build: {
       when: 'isNotTest',
@@ -59,25 +58,30 @@ module.exports = {
         {
           name: 'Runtime + Compiler: recommended for most users',
           value: 'standalone',
-          short: 'standalone',
+          short: 'standalone'
         },
         {
           name:
             'Runtime-only: about 6KB lighter min+gzip, but templates (or any Vue-specific HTML) are ONLY allowed in .vue files - render functions are required elsewhere',
           value: 'runtime',
-          short: 'runtime',
-        },
-      ],
+          short: 'runtime'
+        }
+      ]
     },
     router: {
       when: 'isNotTest',
       type: 'confirm',
-      message: 'Install vue-router?',
+      message: 'Install vue-router?'
+    },
+    vuex: {
+      when: 'isNotTest',
+      type: 'confirm',
+      message: 'Install vuex'
     },
     lint: {
       when: 'isNotTest',
       type: 'confirm',
-      message: 'Use ESLint to lint your code?',
+      message: 'Use ESLint to lint your code?'
     },
     lintConfig: {
       when: 'isNotTest && lint',
@@ -87,24 +91,24 @@ module.exports = {
         {
           name: 'Standard (https://github.com/standard/standard)',
           value: 'standard',
-          short: 'Standard',
+          short: 'Standard'
         },
         {
           name: 'Airbnb (https://github.com/airbnb/javascript)',
           value: 'airbnb',
-          short: 'Airbnb',
+          short: 'Airbnb'
         },
         {
           name: 'none (configure it yourself)',
           value: 'none',
-          short: 'none',
-        },
-      ],
+          short: 'none'
+        }
+      ]
     },
     unit: {
       when: 'isNotTest',
       type: 'confirm',
-      message: 'Set up unit tests',
+      message: 'Set up unit tests'
     },
     runner: {
       when: 'isNotTest && unit',
@@ -114,24 +118,24 @@ module.exports = {
         {
           name: 'Jest',
           value: 'jest',
-          short: 'jest',
+          short: 'jest'
         },
         {
           name: 'Karma and Mocha',
           value: 'karma',
-          short: 'karma',
+          short: 'karma'
         },
         {
           name: 'none (configure it yourself)',
           value: 'noTest',
-          short: 'noTest',
-        },
-      ],
+          short: 'noTest'
+        }
+      ]
     },
     e2e: {
       when: 'isNotTest',
       type: 'confirm',
-      message: 'Setup e2e tests with Nightwatch?',
+      message: 'Setup e2e tests with Nightwatch?'
     },
     autoInstall: {
       when: 'isNotTest',
@@ -142,20 +146,20 @@ module.exports = {
         {
           name: 'Yes, use NPM',
           value: 'npm',
-          short: 'npm',
+          short: 'npm'
         },
         {
           name: 'Yes, use Yarn',
           value: 'yarn',
-          short: 'yarn',
+          short: 'yarn'
         },
         {
           name: 'No, I will handle that myself',
           value: false,
-          short: 'no',
-        },
-      ],
-    },
+          short: 'no'
+        }
+      ]
+    }
   },
   filters: {
     '.eslintrc.js': 'lint',
@@ -169,7 +173,7 @@ module.exports = {
     'test/unit/specs/index.js': "unit && runner === 'karma'",
     'test/unit/setup.js': "unit && runner === 'jest'",
     'test/e2e/**/*': 'e2e',
-    'src/router/**/*': 'router',
+    'src/router/**/*': 'router'
   },
   complete: function(data, { chalk }) {
     const green = chalk.green
@@ -192,5 +196,5 @@ module.exports = {
     } else {
       printMessage(data, chalk)
     }
-  },
+  }
 }
