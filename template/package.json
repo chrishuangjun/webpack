@@ -32,7 +32,7 @@
 		"buildsit": "cross-env NODE_ENV=sit node build/build.js --env sit",
     "builduat": "cross-env NODE_ENV=uat node build/build.js --env uat",
     "buildprod": "cross-env NODE_ENV=production node build/build.js --env production",
-    "serve": "serve -s dist",
+    "serve": "serve -s dist"
   },
   "dependencies": {
 		"normalize.css": "^8.0.1",
