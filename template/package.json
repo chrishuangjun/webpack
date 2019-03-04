@@ -135,7 +135,7 @@
     "webpack-bundle-analyzer": "^2.13.1",
     "webpack-cli": "^3.1.0",
     "webpack-dev-server": "^3.1.7",
-    "webpack-merge": "^4.1.4"
+    "webpack-merge": "^4.1.4",
 		"nodemon": "^1.18.4",
 		"cross-env": "^5.2.0",
 		"mini-css-extract-plugin": "^0.4.2"
