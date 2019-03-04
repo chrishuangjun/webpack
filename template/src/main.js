@@ -20,6 +20,7 @@ import './assets/iconfont/iconfont.css';
 Vue.config.productionTip = false;
 Vue.prototype.$apiHttp = apiHttp;
 
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
