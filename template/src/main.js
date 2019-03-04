@@ -13,7 +13,12 @@ import store from  './store/store'{{#if_eq lintConfig "airbnb"}};{{/if_eq}}
 Vue.use(Vuex){{#if_eq lintConfig "airbnb"}};{{/if_eq}}
 {{/vuex}}
 
-Vue.config.productionTip = false
+import { apiHttp } from './util/api/index';
+import 'normalize.css';
+import './assets/iconfont/iconfont.css';
+
+Vue.config.productionTip = false;
+Vue.prototype.$apiHttp = apiHttp;
 
 /* eslint-disable no-new */
 new Vue({
