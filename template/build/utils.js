@@ -106,4 +106,3 @@ exports.createNotifierCallback = () => {
     })
   }
 }
-console.log();
