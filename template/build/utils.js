@@ -1,13 +1,14 @@
 'use strict'
 const path = require('path')
 const config = require('../config')
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
+// const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 const packageConfig = require('../package.json')
 
 exports.assetsPath = function (_path) {
-  const assetsSubDirectory = process.env.NODE_ENV === 'production'
-    ? config.build.assetsSubDirectory
-    : config.dev.assetsSubDirectory
+  const assetsSubDirectory = process.env.NODE_ENV === 'production' ?
+    config.build.assetsSubDirectory :
+    config.dev.assetsSubDirectory
 
   return path.posix.join(assetsSubDirectory, _path)
 }
@@ -30,9 +31,8 @@ exports.cssLoaders = function (options) {
   }
 
   // generate loader string to be used with extract text plugin
-  function generateLoaders (loader, loaderOptions) {
+  function generateLoaders(loader, loaderOptions) {
     const loaders = options.usePostCSS ? [cssLoader, postcssLoader] : [cssLoader]
-
     if (loader) {
       loaders.push({
         loader: loader + '-loader',
@@ -41,14 +41,14 @@ exports.cssLoaders = function (options) {
         })
       })
     }
-
     // Extract CSS when that option is specified
     // (which is the case during production build)
     if (options.extract) {
-      return ExtractTextPlugin.extract({
+      return [MiniCssExtractPlugin.loader].concat(loaders)
+      /*return ExtractTextPlugin.extract({
         use: loaders,
         fallback: 'vue-style-loader'
-      })
+      })*/
     } else {
       return ['vue-style-loader'].concat(loaders)
     }
@@ -58,11 +58,18 @@ exports.cssLoaders = function (options) {
   return {
     css: generateLoaders(),
     postcss: generateLoaders(),
-    less: generateLoaders('less'),
-    sass: generateLoaders('sass', { indentedSyntax: true }),
-    scss: generateLoaders('sass'),
-    stylus: generateLoaders('stylus'),
-    styl: generateLoaders('stylus')
+    // less: generateLoaders('less'),
+    sass: generateLoaders('sass', {
+      indentedSyntax: true
+    }),
+    scss: generateLoaders('sass').concat({
+      loader: 'sass-resources-loader',
+      options: {
+        resources: path.resolve(__dirname, '../src/assets/css/var.scss')
+      }
+    }), //concat 全局引入scss变量文件、mixins，在具体页面不需要再单独引入，直接使用变量或者mixin
+    // stylus: generateLoaders('stylus'),
+    // styl: generateLoaders('stylus')
   }
 }
 
@@ -99,3 +106,4 @@ exports.createNotifierCallback = () => {
     })
   }
 }
+console.log();

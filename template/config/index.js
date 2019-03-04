@@ -1,19 +1,29 @@
-'use strict'
-// Template version: {{ template_version }}
+'use strict';
+// Template version: 1.3.1
 // see http://vuejs-templates.github.io/webpack for documentation.
 
-const path = require('path')
-
+const path = require('path');
+const proxyServer = {
+  localdev: '', //dev环境
+  localsit: '', //sit环境
+  localuat: '', //uat环境
+};
+const env = process.env.NODE_ENV;
 module.exports = {
   dev: {
-
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    proxyTable: {},
+    proxyTable: {
+      '/local/*': {
+        target: proxyServer[env],
+        changeOrigin: true,
+        pathRewrite: { '^/local': '' },
+      },
+    },
 
     // Various Dev Server settings
-    host: 'localhost', // can be overwritten by process.env.HOST
+    host: '0.0.0.0', // can be overwritten by process.env.HOST
     port: 8080, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
     autoOpenBrowser: false,
     errorOverlay: true,
@@ -26,8 +36,8 @@ module.exports = {
     useEslint: true,
     // If true, eslint errors and warnings will also be shown in the error overlay
     // in the browser.
-    showEslintErrorsInOverlay: false,
-    {{/lint}}
+		showEslintErrorsInOverlay: false,
+		{{/lint}}
 
     /**
      * Source Maps
@@ -41,7 +51,7 @@ module.exports = {
     // https://vue-loader.vuejs.org/en/options.html#cachebusting
     cacheBusting: true,
 
-    cssSourceMap: true
+    cssSourceMap: true,
   },
 
   build: {
@@ -57,7 +67,7 @@ module.exports = {
      * Source Maps
      */
 
-    productionSourceMap: true,
+    productionSourceMap: false,
     // https://webpack.js.org/configuration/devtool/#production
     devtool: '#source-map',
 
@@ -65,13 +75,13 @@ module.exports = {
     // Surge or Netlify already gzip all static assets for you.
     // Before setting to `true`, make sure to:
     // npm install --save-dev compression-webpack-plugin
-    productionGzip: false,
+    productionGzip: true,
     productionGzipExtensions: ['js', 'css'],
 
     // Run the build command with an extra argument to
     // View the bundle analyzer report after build finishes:
     // `npm run build --report`
     // Set to `true` or `false` to always turn it on or off
-    bundleAnalyzerReport: process.env.npm_config_report
-  }
-}
+    bundleAnalyzerReport: true,
+  },
+};

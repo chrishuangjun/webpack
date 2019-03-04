@@ -17,6 +17,10 @@ import { apiHttp } from './util/api/index';
 import 'normalize.css';
 import './assets/iconfont/iconfont.css';
 
+import Element from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
+Vue.use(Element);
+
 Vue.config.productionTip = false;
 Vue.prototype.$apiHttp = apiHttp;
 

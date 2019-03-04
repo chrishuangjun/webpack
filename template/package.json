@@ -22,9 +22,23 @@
     {{#lint}}
     "lint": "eslint --ext .js,.vue src{{#unit}} test/unit{{/unit}}{{#e2e}} test/e2e/specs{{/e2e}}",
     {{/lint}}
-    "build": "node build/build.js"
+		"build": "node build/build.js",
+		"dev": "cross-env NODE_ENV=localdev webpack-dev-server --inline --progress --config build/webpack.dev.conf.js --env localdev",
+    "sit": "cross-env NODE_ENV=localsit webpack-dev-server --inline --progress --config build/webpack.dev.conf.js --env localsit",
+    "uat": "cross-env NODE_ENV=localuat webpack-dev-server --inline --progress --config build/webpack.dev.conf.js --env localuat",
+    "startdev": "nodemon --watch webpack.dev.conf.js --exec \"npm run dev\"",
+    "startsit": "nodemon --watch webpack.dev.conf.js --exec \"npm run sit\"",
+		"startuat": "nodemon --watch webpack.dev.conf.js --exec \"npm run uat\"",
+		"buildsit": "cross-env NODE_ENV=sit node build/build.js --env sit",
+    "builduat": "cross-env NODE_ENV=uat node build/build.js --env uat",
+    "buildprod": "cross-env NODE_ENV=production node build/build.js --env production",
+    "serve": "serve -s dist",
   },
   "dependencies": {
+		"normalize.css": "^8.0.1",
+		"qs": "^6.5.2",
+		"axios": "^0.18.0",
+		"element-ui": "^2.4.6",
     "vue": "^2.5.2"{{#router}},
 		"vue-router": "^3.0.1"{{/router}}{{#vuex}},
 		"vuex":"^3.0.1"{{/vuex}}
@@ -82,7 +96,10 @@
     "cross-spawn": "^5.0.1",
     "nightwatch": "^0.9.12",
     "selenium-server": "^3.0.1",
-    {{/e2e}}
+		{{/e2e}}
+		"node-sass": "^4.9.3",
+		"sass-loader": "^7.1.0",
+    "sass-resources-loader": "^2.0.0",
     "autoprefixer": "^7.1.2",
     "babel-core": "^6.22.1",
     "babel-helper-vue-jsx-merge-props": "^2.0.3",
@@ -117,7 +134,8 @@
     "portfinder": "^1.0.13",
     "webpack": "^3.6.0",
     "webpack-dev-server": "^2.9.1",
-    "webpack-merge": "^4.1.0"
+		"webpack-merge": "^4.1.0",
+		"nodemon": "^1.18.4"
   },
   "engines": {
     "node": ">= 6.0.0",
