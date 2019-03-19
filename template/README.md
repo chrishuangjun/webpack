@@ -6,13 +6,25 @@
 
 ``` bash
 # install dependencies
-npm install
+yarn install
 
 # serve with hot reload at localhost:8080
-npm run dev
+yarn startdev //本地连接dev环境
+yarn startsit //本地连接sit环境
+yarn startuat //本地连接uat环境
 
 # build for production with minification
-npm run build
+yarn builddev //打包测试环境
+yarn buildprod //打包生产环境
+
+# 发布前预览页面效果
+yarn serve
+
+# 生成部署配置文件
+yarn gcfg
+
+# 部署测试环境
+yarn publish
 
 # build for production and view the bundle analyzer report
 npm run build --report

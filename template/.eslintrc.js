@@ -68,7 +68,20 @@ module.exports = {
       optionalDependencies: ['test/unit/index.js']
     }],
     {{/if_eq}}
+    'no-throw-literal': 0,   // 允许用字面量{}抛出异常
+    'arrow-parens': 0,
+    'semi': [2, 'always'],  // 语句强制分号结尾
+    'indent': [2, 4, {      // 缩进风格
+        'SwitchCase': 1
+    }],
+    // allow async-await
+    'generator-star-spacing': 0,
     // allow debugger during development
-    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off'
+    'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0,
+    'space-before-function-paren': 0,
+    'one-var': 0,
+    'no-undef': 0,
+    'no-control-regex': 'off',
+    'no-useless-escape': 'off'
   }
 }

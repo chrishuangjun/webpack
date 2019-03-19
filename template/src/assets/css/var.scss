@@ -1,2 +1,11 @@
 $red:#F00;
 $black:#000;
+
+//此处导出可以在js里面使用，使用示例
+//import vars from './assets/css/var.scss';
+//Vue.prototype.$vars = vars;
+//然后在vue组件里面就可以通过this.$vars.red访问
+:export {
+    red: $red;
+    black: $black;
+  }

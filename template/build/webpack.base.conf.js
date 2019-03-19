@@ -40,9 +40,9 @@ module.exports = {
     resolve: {
         extensions: ['.js', '.vue', '.json'],
         alias: {
-						{{#if_eq build "standalone"}}
-      			'vue$': 'vue/dist/vue.esm.js',
-      			{{/if_eq}}
+			{{#if_eq build "standalone"}}
+      		'vue$': 'vue/dist/vue.esm.js',
+      		{{/if_eq}}
             '@': resolve('src'),
             "modules": resolve(join('src', 'components', 'modules')),
             "packages": resolve(join('src', 'components', 'packages')),
@@ -52,9 +52,9 @@ module.exports = {
     module: {
         noParse: /node_modules\/(element-ui\.js)/,
         rules: [
-						{{#lint}}
-						...(config.dev.useEslint ? [createLintingRule()] : []),
-						{{/lint}}
+			{{#lint}}
+			...(config.dev.useEslint ? [createLintingRule()] : []),
+			{{/lint}}
             {
                 test: /\.vue$/,
                 loader: 'vue-loader',

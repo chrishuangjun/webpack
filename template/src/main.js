@@ -13,13 +13,22 @@ import store from  './store'{{#if_eq lintConfig "airbnb"}};{{/if_eq}}
 Vue.use(Vuex){{#if_eq lintConfig "airbnb"}};{{/if_eq}}
 {{/vuex}}
 
-import { apiHttp } from './util/api/index';
+import { apiHttp } from './api/index';
 import 'normalize.css';
 import './assets/iconfont/iconfont.css';
 
-import Element from 'element-ui';
-import 'element-ui/lib/theme-chalk/index.css';
-Vue.use(Element);
+//引入mock服务
+// import './mock';
+
+//全量引入element-ui
+// import Element from 'element-ui';
+// import 'element-ui/lib/theme-chalk/index.css';
+// Vue.use(Element);
+
+//全量引入mui（共享部提供的ui组件库）
+import Mui from 'mui';
+import 'mui/dist/styles/mui.css';
+Vue.use(Mui);
 
 Vue.config.productionTip = false;
 Vue.prototype.$apiHttp = apiHttp;

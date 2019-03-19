@@ -22,24 +22,25 @@
     {{#lint}}
     "lint": "eslint --ext .js,.vue src{{#unit}} test/unit{{/unit}}{{#e2e}} test/e2e/specs{{/e2e}}",
     {{/lint}}
-		"build": "node build/build.js",
-		"dev": "cross-env NODE_ENV=localdev webpack-dev-server --inline --progress --config build/webpack.dev.conf.js --env localdev",
+	"dev": "cross-env NODE_ENV=localdev webpack-dev-server --inline --progress --config build/webpack.dev.conf.js --env localdev",
     "sit": "cross-env NODE_ENV=localsit webpack-dev-server --inline --progress --config build/webpack.dev.conf.js --env localsit",
     "uat": "cross-env NODE_ENV=localuat webpack-dev-server --inline --progress --config build/webpack.dev.conf.js --env localuat",
     "startdev": "nodemon --watch webpack.dev.conf.js --exec \"npm run dev\"",
     "startsit": "nodemon --watch webpack.dev.conf.js --exec \"npm run sit\"",
-		"startuat": "nodemon --watch webpack.dev.conf.js --exec \"npm run uat\"",
-		"buildsit": "cross-env NODE_ENV=sit node build/build.js --env sit",
-    "builduat": "cross-env NODE_ENV=uat node build/build.js --env uat",
+	"startuat": "nodemon --watch webpack.dev.conf.js --exec \"npm run uat\"",
+	"builddev": "cross-env NODE_ENV=sit node build/build.js --env dev",
     "buildprod": "cross-env NODE_ENV=production node build/build.js --env production",
-    "serve": "serve -s dist"
+    "serve": "serve -s dist",
+    "gcfg":"publish-by-ssh2 gcfg",
+    "publish":"publish-by-ssh2 p"
   },
   "dependencies": {
 		"normalize.css": "^8.0.1",
 		"qs": "^6.5.2",
 		"axios": "^0.18.0",
-		"element-ui": "^2.4.6",
-    "vue": "^2.5.2"{{#router}},
+        "element-ui": "^2.4.6",
+        "mui": "^1.1.24",
+        "vue": "^2.5.2"{{#router}},
 		"vue-router": "^3.0.1"{{/router}}{{#vuex}},
 		"vuex":"^3.0.1"{{/vuex}}
   },
@@ -96,9 +97,9 @@
     "cross-spawn": "^5.0.1",
     "nightwatch": "^0.9.12",
     "selenium-server": "^3.0.1",
-		{{/e2e}}
-		"node-sass": "^4.9.3",
-		"sass-loader": "^7.1.0",
+	{{/e2e}}
+	"node-sass": "^4.9.3",
+	"sass-loader": "^7.1.0",
     "sass-resources-loader": "^2.0.0",
     "autoprefixer": "^7.1.2",
     "babel-core": "^6.22.1",
@@ -106,8 +107,8 @@
     "babel-loader": "^7.1.1",
     "babel-plugin-syntax-jsx": "^6.18.0",
     "babel-plugin-transform-runtime": "^6.22.0",
-		"babel-plugin-transform-vue-jsx": "^3.5.0",
-		"babel-polyfill": "^6.26.0",
+	"babel-plugin-transform-vue-jsx": "^3.5.0",
+	"babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.3.2",
     "babel-preset-stage-2": "^6.22.0",
     "chalk": "^2.0.1",
@@ -136,9 +137,11 @@
     "webpack-cli": "^3.1.0",
     "webpack-dev-server": "^3.1.7",
     "webpack-merge": "^4.1.4",
-		"nodemon": "^1.18.4",
-		"cross-env": "^5.2.0",
-		"mini-css-extract-plugin": "^0.4.2"
+	"nodemon": "^1.18.4",
+	"cross-env": "^5.2.0",
+    "mini-css-extract-plugin": "^0.4.2",
+    "mockjs": "^1.0.1-beta3",
+    "publish-by-ssh2":"^1.0.7"
   },
   "engines": {
     "node": ">= 6.0.0",
