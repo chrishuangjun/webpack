@@ -1,56 +1,60 @@
-/**
- *存储localStorage、sessionStorage
- * **/
-const storages = [window.sessionStorage, window.localStorage];
-export const setStorage = (name, content, index = 0) => {
-    if (!name) return null;
-    if (typeof content !== 'string') {
-        content = JSON.stringify(content);
+class WebStorage {
+    getLocalOrSession(isLocalStorage) {
+        return isLocalStorage ? localStorage : sessionStorage;
     }
-    if (index !== 0) index = 1;
-    storages[index].setItem(name, content);
-};
 
-/**
- * 获取localStorage
- */
-export const getStorage = (name, index = 0) => {
-    if (!name) return null;
-    if (index !== 0) index = 1;
-    return storages[index].getItem(name);
-};
+    /**
+     * 设置storage
+     * @param key {string} 要存储的key
+     * @param value {string | object} 要设置的值
+     * @param isLocalStorage 是否要用localStorage默认否
+     */
+    set(name, value, isLocalStorage = false) {
+        let _storage = this.getLocalOrSession(isLocalStorage);
+        if (typeof value !== 'string') {
+            value = JSON.stringify(value);
+        }
+        _storage.setItem(name, value);
+    }
 
-export const getStorageParse = (name, index = 0) => {
-    let objStr = getStorage(name, index);
-    if (objStr === null) return null;
-    objStr = objStr
-        .replace(/[\\"']/g, function (r) {
-            return '\\' + r;
-        })
-        .replace(/%/g, '\\x25')
-        .replace(/\n/g, '\\n')
-        .replace(/\r/g, '\\r')
-        .replace(/\x01/g, '\\x01')
-        .replace(/[\\\^\$\*\+\?\{\}\.\(\)\[\]]/g, function (a) {
-            return '\\' + a;
-        })
-        .replace(/function/gi, '');
-    return JSON.parse(objStr);
-};
+    /**
+     * 获取storage
+     * @param name {string} 要获取的key
+     * @param isLocalStorage {boolean} 是否要用localStorage默认否
+     * @return string | object | null
+     * string 不可转JSON格式的返回字符串
+     * object 可转JSON格式的放回JSON
+     * null 找不到的返回null
+     */
+    get(name, isLocalStorage = false) {
+        let _storage = this.getLocalOrSession(isLocalStorage);
+        let resStr = _storage.getItem(name);
+        if (!resStr) return null; // 获取不到的直接返回null
+        try {
+            let resJson = JSON.parse(resStr);
+            return resJson; // JSON格式的，直接返回JSON
+        } catch {
+            return resStr; // 非JSON格式的，直接返回字符串
+        }
+    }
 
-/**
- * 删除localStorage
- */
-export const removeStorage = (name, index = 0) => {
-    if (!name) return null;
-    if (index !== 0) index = 1;
-    storages[index].removeItem(name);
-};
+    /**
+     * 移除某个缓存
+     * @param name {string} 要获取的key
+     * @param isLocalStorage {boolean} 是否要用localStorage默认否
+     */
+    remove(name, isLocalStorage = false) {
+        let _storage = this.getLocalOrSession(isLocalStorage);
+        _storage.removeItem(name);
+    }
 
-/**
- * 删除localStorage
- */
-export const clearStorage = (index = 0) => {
-    if (index !== 0) index = 1;
-    storages[index].clear();
-};
+    /**
+     * 清除整个缓存
+     */
+    clear(isLocalStorage = false) {
+        let _storage = this.getLocalOrSession(isLocalStorage);
+        _storage.clear();
+    }
+}
+
+export default new WebStorage();
